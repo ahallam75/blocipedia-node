@@ -16,5 +16,12 @@
   "bugs": {
     "url": "https://github.com/ahallam75/blocipedia-node/issues"
   },
-  "homepage": "https://github.com/ahallam75/blocipedia-node#readme"
+  "homepage": "https://github.com/ahallam75/blocipedia-node#readme",
+  "devDependencies": {
+    "jasmine": "^3.0.0",
+    "request": "^2.83.0"
+  },
+  "dependencies": {
+    "express": "^4.16.2"
+  }
 }
