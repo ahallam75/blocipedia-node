@@ -3,9 +3,10 @@ const bodyParser = require("body-parser");
 const logger = require('morgan');
 
 module.exports = {
-  init(){
+  init(app, express){
     app.use(bodyParser.urlencoded({ extended: true }));
     app.use(logger('dev'));
 
   }
 };
+

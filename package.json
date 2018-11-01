@@ -2,7 +2,7 @@
   "name": "blocipedia-node",
   "version": "1.0.0",
   "description": "An application that allows users to create, collaborate, and share wikis.",
-  "main": "index.js",
+  "main": "src/server.js",
   "scripts": {
     "test": "set NODE_ENV=test&& jasmine",
     "start": "node src/server.js"
@@ -11,7 +11,7 @@
     "type": "git",
     "url": "git+https://github.com/ahallam75/blocipedia-node.git"
   },
-  "author": "",
+  "author": "Alex Hallam",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/ahallam75/blocipedia-node/issues"
