@@ -6,7 +6,7 @@ module.exports = {
 
 const userQueries = require("../db/queries.users");
 const passport = require("passport");
-//const sgMail = require('@sendgrid/mail');
+const sgMail = require('@sendgrid/mail');
 
 module.exports = {
   signUp(req, res, next){

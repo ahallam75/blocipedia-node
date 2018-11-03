@@ -35,17 +35,17 @@ describe("routes : users", () => {
          const options = {
             url: base + "signup",
             form: {
-               name: "Ororo Munroe",
-               email: "ororo@example.com",
+               name: "Sally Smith",
+               email: "Sally@example.com",
                password: "12345678"
             }
          }
 
          request.post(options, (err, res, body) => {
-            User.findOne({where: {email: "ororo@example.com"}})
+            User.findOne({where: {email: "sally@example.com"}})
             .then((user) => {
                expect(user).not.toBeNull();
-               expect(user.email).toBe("ororo@example.com");
+               expect(user.email).toBe("sally@example.com");
                expect(user.id).toBe(1);
                done();
             })
