@@ -11,10 +11,10 @@ const sgMail = require('@sendgrid/mail');
 module.exports = {
   signUp(req, res, next){
      res.render("users/signup");
-  } ,
+  },
   create(req, res, next){
     let newUser = {
-      name: req.body.name,
+      username: req.body.username,
       email: req.body.email,
       password: req.body.password,
       passwordConfirmation: req.body.passwordConfirmation
@@ -33,8 +33,8 @@ module.exports = {
             to: user.email,
             from: 'support@blocipedia.com',
             subject: 'Welcome to Blocipedia!',
-            text: `Welcome to Blocipedia ${user.name}!`,
-            html: `<strong>Welcome to Blocipedia ${user.name}!</strong>`,
+            text: `Welcome to Blocipedia ${user.username}!`,
+            html: `<strong>Welcome to Blocipedia ${user.username}!</strong>`,
           };
           sgMail.send(msg);
           res.redirect("/");
