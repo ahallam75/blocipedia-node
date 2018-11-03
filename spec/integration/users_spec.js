@@ -36,7 +36,7 @@ describe("routes : users", () => {
             url: base + "signup",
             form: {
                username: "Sally Smith",
-               email: "Sally@example.com",
+               email: "sally@example.com",
                password: "12345678"
             }
          }
