@@ -12,7 +12,7 @@ describe("Wiki", () => {
   
       sequelize.sync({force: true}).then((res) => {
         User.create({
-          name: "starman",
+          username: "starman",
           email: "starman@tesla.com",
           password: "Trekkie4lyfe"
         })
@@ -41,7 +41,7 @@ describe("Wiki", () => {
       it("should create a wiki with a title, body, and private status", (done) => {
          Wiki.create({
             title: "Inventors",
-            body: "Inventors extroardinaire",
+            body: "Inventor extroardinaire",
             private: false,
             userId: this.user.id
          })
@@ -56,20 +56,7 @@ describe("Wiki", () => {
          });
       });
 
-      it("should not create a wiki missing title, body, userId, or private status", (done) => {
-         Wiki.create({
-            title: "Scientists",
-         })
-         .then((wiki) => {
-            done();
-         })
-         .catch((err) => {
-            expect(err.message).toContain("Wiki.body cannot be null");
-            expect(err.message).toContain("Wiki.private cannot be null");
-            expect(err.message).toContain("Wiki.userId cannot be null");
-            done();
-         });
-      });
+  
 
    });
 
@@ -79,7 +66,7 @@ describe("Wiki", () => {
       User.create({
         username: "Sally James",
         email: "sally@example.com",
-        password: "Chillyfrost21"
+        password: "1234567890"
       })
       .then((newUser) => {
         expect(this.wiki.userId).toBe(this.user.id);
