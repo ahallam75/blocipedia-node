@@ -8,6 +8,10 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   Wiki.associate = function(models) {
     // associations can be defined here
+    Wiki.belongsTo(models.User, {
+      foreignKey: "userId",
+      onDelete: "CASCADE"
+    });
   };
   return Wiki;
 };
