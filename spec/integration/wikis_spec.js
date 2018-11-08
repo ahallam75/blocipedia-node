@@ -47,7 +47,7 @@ describe("routes : wikis", () => {
             request.get({         
                url: "http://localhost:3000/auth/fake",
                form: {
-                 username: user.name,     
+                 username: user.username,     
                  userId: user.id,
                  email: user.email
                }
@@ -97,9 +97,9 @@ describe("routes : wikis", () => {
             console.log(res.statusMessage);
             Wiki.findOne({where: {title: "Another interesting topic"}})
             .then((wiki) => {
-              expect(wiki).toBeDefined();
-              //expect(wiki.title).toBe("Another interesting topic");
-              //expect(wiki.body).toBe("With even more information");
+              //expect(wiki).toBeDefined();
+              expect(wiki.title).toBe("Another interesting topic");
+              expect(wiki.body).toBe("With even more information");
               done();
             })
             .catch((err) => {
@@ -182,8 +182,39 @@ describe("routes : wikis", () => {
             });
          });
 
+         it("should allow other users to update the wiki with the given values", (done) => {
+          User.create({
+            username: "Sam Green",
+            email: "sam@example.com",
+            password: "goodpassword"
+          })
+          .then((user) => {
+            request.post({
+              url: `${base}${this.wiki.id}/update`,
+              form: {
+                title: "Politics in America",
+                body: "There are three branches of government",
+                userId: user.id
+              }
+            }, (err, res, body) => {
+              expect(err).toBeNull();
+              expect(user.id).toBe(3);
+              Wiki.findOne({
+                where: {id:1}
+              })
+              .then((wiki) => {
+                expect(wiki.userId).toBe(3);
+                expect(wiki.title).toBe("Politics in America");
+                done();
+              });
+            });
+          })
+        });
+
       });
 
    });
 
 });
+
+      
