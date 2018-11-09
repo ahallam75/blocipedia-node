@@ -98,7 +98,7 @@ describe("routes : wikis", () => {
             Wiki.findOne({where: {title: "Another interesting topic"}})
             .then((wiki) => {
               expect(wiki).toBeDefined();
-              //expect(wiki.title).toBe("Another interesting topic");
+              //expect(wiki.title).toBe("Another interesting topic");  Probably can delete these. 
               //expect(wiki.body).toBe("With even more information");
               done();
             })
