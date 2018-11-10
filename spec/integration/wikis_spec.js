@@ -59,14 +59,13 @@ describe("routes : wikis", () => {
       });
 
       describe("GET /wikis", () => {
-         it("should respond with all wikis", (done) => {
-            request.get(base, (err, res, body) => {
-               expect(err).toBeNull();
-               expect(body).toContain("Interesting topic");
-               done();
-            });
-         });
-
+        it("should respond with all wikis", (done) => {
+          request.get(base, (err, res, body) => {
+            expect(err).toBeNull();
+            expect(body).toContain("JS Frameworks");
+            done();
+          });
+        });
       });
 
       describe("GET /wikis/new", () => {
@@ -121,7 +120,7 @@ describe("routes : wikis", () => {
          it("should render a view with the selected wiki", (done) => {
             request.get(`${base}${this.wiki.id}`, (err,res, body) => {
                expect(err).toBeNull();
-               expect(body).toContain("Interesting topic");
+               expect(body).toContain("JS Frameworks");
                done();
             });
          });
@@ -156,7 +155,7 @@ describe("routes : wikis", () => {
             request.get(`${base}${this.wiki.id}/edit`, (err, res, body) => {
               expect(err).toBeNull();
               expect(body).toContain("Edit Wiki");
-              expect(body).toContain("Interesting topic");
+              expect(body).toContain("JS Frameworks");
               done();
             })
          });
@@ -218,7 +217,7 @@ describe("routes : wikis", () => {
               expect(res.statusCode).toBe(200);
               expect(err).toBeNull();
               expect(body).toContain("Wikis");
-              expect(body).toContain("JS Frameworks");
+              expect(body).toContain("Interesting topic");
               done();
           });
       });
@@ -277,7 +276,7 @@ describe("routes : wikis", () => {
       it("should render a view with the selected wiki", (done) => {
           request.get(`${base}${this.wiki.id}`, (err, res, body) => {
               expect(err).toBeNull();
-              expect(body).toContain("JS Frameworks");
+              expect(body).toContain("Interesting topic");
               done();
           });
       });
@@ -309,7 +308,7 @@ describe("routes : wikis", () => {
           request.get(`${base}${this.wiki.id}/edit`, (err, res, body) => {
               expect(err).toBeNull();
               expect(body).toContain("Edit Wiki");
-              expect(body).toContain("JS Frameworks");
+              expect(body).toContain("Interesting topic");
               done();
           });
       });
@@ -369,7 +368,7 @@ describe("premium user performing CRUD actions for Wikis", () => {
               expect(res.statusCode).toBe(200);
               expect(err).toBeNull();
               expect(body).toContain("Wikis");
-              expect(body).toContain("JS Frameworks");
+              expect(body).toContain("Interesting topic");
               done();
           });
       });
@@ -428,7 +427,7 @@ describe("premium user performing CRUD actions for Wikis", () => {
       it("should render a view with the selected wiki", (done) => {
           request.get(`${base}${this.wiki.id}`, (err, res, body) => {
               expect(err).toBeNull();
-              expect(body).toContain("JS Frameworks");
+              expect(body).toContain("Interesting topic");
               done();
           });
       });
@@ -460,7 +459,7 @@ describe("premium user performing CRUD actions for Wikis", () => {
           request.get(`${base}${this.wiki.id}/edit`, (err, res, body) => {
               expect(err).toBeNull();
               expect(body).toContain("Edit Wiki");
-              expect(body).toContain("JS Frameworks");
+              expect(body).toContain("Interesting topic");
               done();
           });
       });
