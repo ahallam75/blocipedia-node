@@ -70,7 +70,7 @@ module.exports = {
    },
 
    edit(req, res, next){ //May have to revert back.
-        wikiQueries.getWikis(req.params.id, (err, wiki) => {
+        wikiQueries.getWiki(req.params.id, (err, wiki) => {
             if(err || wiki == null){
                 res.redirect(404, "/");
             } else {

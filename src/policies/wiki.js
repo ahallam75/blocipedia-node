@@ -3,7 +3,7 @@ const ApplicationPolicy = require("./application");
 module.exports = class WikiPolicy extends ApplicationPolicy {
     
     new() {
-        return this.isStandard() || this._isPremium() || this_isAdmin();
+        return this._isStandard() || this._isPremium() || this._isAdmin();
     }
     
     create() {
