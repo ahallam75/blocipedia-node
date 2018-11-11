@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/ahallam75/blocipedia-node#readme",
   "devDependencies": {
+    "faker": "^4.1.0",
     "jasmine": "^3.3.0",
     "request": "^2.83.0"
   },
