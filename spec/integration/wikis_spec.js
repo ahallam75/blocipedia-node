@@ -14,7 +14,7 @@ describe("routes : wikis", () => {
         }).then((res) => {
 
             Wiki.create({
-                    title: "Interesting Topic",
+                    title: "Interesting topic",
                     body: "There is a lot of them"
                 })
                 .then((wiki) => {
@@ -62,7 +62,7 @@ describe("routes : wikis", () => {
         it("should respond with all wikis", (done) => {
           request.get(base, (err, res, body) => {
             expect(err).toBeNull();
-            expect(body).toContain("Interesting Topic");
+            expect(body).toContain("Interesting topic");
             done();
           });
         });
@@ -120,7 +120,7 @@ describe("routes : wikis", () => {
          it("should render a view with the selected wiki", (done) => {
             request.get(`${base}${this.wiki.id}`, (err,res, body) => {
                expect(err).toBeNull();
-               expect(body).toContain("Interesting Topic");
+               expect(body).toContain("Interesting topic");
                done();
             });
          });
@@ -155,7 +155,7 @@ describe("routes : wikis", () => {
             request.get(`${base}${this.wiki.id}/edit`, (err, res, body) => {
               expect(err).toBeNull();
               expect(body).toContain("Edit Wiki");
-              expect(body).toContain("Interesting Topic");
+              expect(body).toContain("Interesting topic");
               done();
             })
          });
