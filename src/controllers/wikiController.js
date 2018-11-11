@@ -31,7 +31,8 @@ module.exports = {
         let newWiki = {
             title: req.body.title,
             body: req.body.body,
-            private: req.body.private
+            private: req.body.private,
+            userId: req.user.id
         };
         wikiQueries.addWiki(newWiki, (err, wiki) => {
             if (err) {
@@ -58,18 +59,17 @@ module.exports = {
       });
    },
 
-   destroy(req, res, next) {
-      wikiQueries.deleteWiki(req.params.id, (err, wiki) => {
-         if(err) {
-            res.direct(500, `/wikis/${wiki.id}`);
-         }
-         else {
-            res.redirect(303, "/wikis");
-         }
-      });
+   destroy(req, res, next){
+        wikiQueries.deleteWiki(req, (err, wiki) => {
+          if(err){
+            res.redirect(err, `/wikis/${req.params.id}`)
+          } else {
+            res.redirect(303, "/wikis")
+          }
+        });
    },
 
-   edit(req, res, next){ //May have to revert back.
+   edit(req, res, next){ 
         wikiQueries.getWiki(req.params.id, (err, wiki) => {
             if(err || wiki == null){
                 res.redirect(404, "/");
