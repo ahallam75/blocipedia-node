@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <% include ../static/partials/head.ejs %>
+</head>
+
+<body>
+    <% include ../static/partials/navbar.ejs %>
+    <main class="container">
+        <% include ../static/partials/messages.ejs %>
+        <h1>Hey
+            <%= user.username %>!
+        </h1>
+        <h3>Account type:
+            <%= user.role %>
+        </h3>
+        <p>Downgrading? Remember you can always upgrade in the future if you change your mind!</p>
+        <form action="/users/<%= user.id %>/downgrade" method="POST">
+            <button type="Submit" class="btn btn-warning">Downgrade confirmation</button>
+        </form>
+    </main>
+    <% include ../static/partials/baseScripts.ejs %>
+</body>
+
+</html>

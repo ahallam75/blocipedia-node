@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <% include ../static/partials/head.ejs %>
+</head>
+
+<body>
+    <% include ../static/partials/navbar.ejs %>
+    <main class="container">
+        <% include ../static/partials/messages.ejs %>
+        <h1>Hey
+            <%= user.username %>!
+        </h1>
+        <h3>Account status:
+            <%= user.role %>
+        </h3>
+        <p>Upgrading?</p>
+        
+
+<form action="/users/ <%=user.id %>/upgrade" method="POST">
+    <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="pk_test_YCeYlwNVKAI090sGs8BkQe0d"
+        data-amount="1500" data-name="Blocipedia" data-description="Testing payment" data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+        data-locale="auto">
+    </script>
+</form>
+    </main>
+    <% include ../static/partials/baseScripts.ejs %>
+</body>
+
+</html>

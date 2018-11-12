@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <% include ../static/partials/head.ejs %>
+</head>
+
+<body>
+    <% include ../static/partials/navbar.ejs %>
+    <main class="container">
+        <% include ../static/partials/messages.ejs %>
+        <h1>
+            Hello <%= `${currentUser.username}!` %>
+        </h1>
+        <h3>
+            <%= `Email: ${currentUser.email}` %>
+        </h3>
+        <h3>
+            <%= `Current role: ${currentUser.role}` %>
+        </h3>
+        <h4>
+            <%= `Profile created at ${currentUser.createdAt}`%>
+        </h4>
+        <hr>
+        <% if(currentUser && currentUser.role == "standard") { %>
+        <h2>Become a premium member</h2>
+        <p>Create private wikis and collaborate with other premium members.<p>
+        <form action="/users/<%=currentUser.id%>/upgrade" method="POST">
+            <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="pk_test_6PyQxh7UzKFq84my5MfvGUQP"
+                data-amount="1500" data-name="Stripe.com" data-description="Example Premium Membership Charge"
+                data-image="https://stripe.com/img/documentation/checkout/marketplace.png" data-locale="auto">
+            </script>
+        </form>
+        <% } else { %>
+        <% if(currentUser.role == "premium"); { %>
+        <h2>Easy Downgrade</h2>
+        <p> We're sad to see you go!</p>
+        <h6>FYI - All of your private Wikis will become public.</h6>
+        <form action="/users/<%=currentUser.id%>/downgrade" method="POST">
+            <button type="submit" class="btn btn-danger">Membership Downgrade</button>
+        </form>
+        <% } %>
+        <% } %>
+    </main>
+    <% include ../static/partials/baseScripts.ejs %>
+</body>
+</html>
