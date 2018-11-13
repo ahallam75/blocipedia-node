@@ -140,7 +140,7 @@ describe("routes : wikis", () => {
                   Wiki.all()
                   .then((wikis) => {
                      expect(err).toBeNull();
-                     expect(wikis.length).toBe(wikiCountBeforeDelete - 0);
+                     expect(wikis.length).toBe(wikiCountBeforeDelete - 1);
                      done();
                   })
                });
