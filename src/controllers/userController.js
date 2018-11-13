@@ -2,7 +2,10 @@ const userQueries = require("../db/queries.users");
 const wikiQueries = require("../db/queries.wikis.js");
 const passport = require("passport");
 const sgMail = require('@sendgrid/mail');
-const stripe = require("stripe")("pk_test_6PyQxh7UzKFq84my5MfvGUQP");
+const stripe = require("stripe")("Secret Key Goes Here.");
+const User = require("../db/models").User;
+const flash = require("express-flash");
+const express = require('express');
 
 module.exports = {
   signUp(req, res, next){
@@ -82,10 +85,7 @@ module.exports = {
 
   upgrade(req, res, next){
     const token = req.body.stripeToken;
-    const email = req.body.stripeEmail;
-    User.findOne({
-        where: {email: email}
-    })
+    User.findById(req.params.id)
     .then((user) => {
         if(user){
             const charge = stripe.charges.create({
@@ -97,7 +97,7 @@ module.exports = {
             .then((result) => {
                 if(result){
                     userQueries.toggleRole(user);
-                    req.flash("notice", "Your upgrade to premium was successful");
+                    req.flash("success", "Your upgrade to premium was successful");
                     res.redirect("/wikis");
                 } else {
                     req.flash("notice", "Failed to upgrade");
@@ -123,13 +123,11 @@ module.exports = {
   },
 
   downgrade(req, res, next){
-    User.findOne({
-        where: {id: req.params.id}
-    })
+    User.findById(req.params.id)
     .then((user) => {
         if(user){
             userQueries.toggleRole(user);
-            req.flash("notice", "Your downgrade to standard was successful!");
+            req.flash("success", "Your downgrade to standard was successful!");
             res.redirect("/wikis");
         } else {
             req.flash("notice", "Failed to downgrade");

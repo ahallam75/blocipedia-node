@@ -1,5 +1,6 @@
 const wikiQueries = require("../db/queries.wikis.js");
 const Authorizer = require("../policies/wiki");
+const flash = require("express-flash");
 
 module.exports = {
 
@@ -34,6 +35,7 @@ module.exports = {
             private: req.body.private,
             userId: req.user.id
         };
+        console.log(newWiki);
         wikiQueries.addWiki(newWiki, (err, wiki) => {
             if (err) {
                 console.log(err);
