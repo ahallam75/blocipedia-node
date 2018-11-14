@@ -2,10 +2,12 @@ const userQueries = require("../db/queries.users");
 const wikiQueries = require("../db/queries.wikis.js");
 const passport = require("passport");
 const sgMail = require('@sendgrid/mail');
-const stripe = require("stripe")("Stripe API");
 const User = require("../db/models").User;
 const flash = require("express-flash");
 const express = require('express');
+const publishableKey = process.env.STRIPE_PUBLISHABLE_KEY;
+const secretKey = process.env.STRIPE_SECRET_KEY;
+const stripe = require("stripe")(secretKey);
 
 module.exports = {
   signUp(req, res, next){

@@ -19,7 +19,7 @@
         
 
 <form action="/users/ <%=user.id %>/upgrade" method="POST">
-    <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="Stripe API"
+    <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="STRIPE_SECRET_KEY"
         data-amount="1500" data-name="Blocipedia" data-description="Testing payment" data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
         data-locale="auto">
     </script>
