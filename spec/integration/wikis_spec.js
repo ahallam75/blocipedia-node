@@ -89,11 +89,7 @@ describe("routes : wikis", () => {
         };
 
         it("should create a new wiki and redirect", (done) => {
-
-            //#1
             request.post(options,
-
-                //#2
                 (err, res, body) => {
                     Wiki.findOne({
                             where: {
@@ -245,18 +241,16 @@ describe("routes : wikis", () => {
       };
 
       it("should create a new wiki and redirect", (done) => {
-
-          //#1
           request.post(options,
-
-              //#2
               (err, res, body) => {
+                //console.log(body);
                   Wiki.findOne({
                           where: {
                               title: "blink-182 songs"
                           }
                       })
                       .then((wiki) => {
+                          console.log(title); //remove when debugged
                           expect(res.statusCode).toBe(303);
                           expect(wiki.title).toBe("blink-182 songs");
                           expect(wiki.body).toBe("What's your favorite blink-182 song?");
@@ -408,6 +402,7 @@ describe("premium user performing CRUD actions for Wikis", () => {
                           }
                       })
                       .then((wiki) => {
+                          console.log(title); //remove when debugged
                           expect(res.statusCode).toBe(303);
                           expect(wiki.title).toBe("blink-182 songs");
                           expect(wiki.body).toBe("What's your favorite blink-182 song?");

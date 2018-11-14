@@ -7,7 +7,7 @@ module.exports = {
    index(req, res, next) {
       wikiQueries.getAllWikis((err, wikis) => {
          if(err){
-            console.log(err);
+            //console.log(err);
             res.redirect(500, "static/index");
          }
          else{
@@ -35,7 +35,7 @@ module.exports = {
             private: req.body.private,
             userId: parseInt(req.user.id)
         };
-        console.log(newWiki);
+        //console.log(newWiki);
         wikiQueries.addWiki(newWiki, (err, wiki) => {
             if (err) {
                 console.log(err);
