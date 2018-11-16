@@ -9,13 +9,15 @@ describe("routes : wikis", () => {
 
     beforeEach((done) => {
         this.wiki;
+        //this.user;
         sequelize.sync({
             force: true
         }).then((res) => {
 
             Wiki.create({
                     title: "Interesting topic",
-                    body: "There is a lot of them"
+                    body: "There is a lot of them",
+                    //userId: this.user.id
                 })
                 .then((wiki) => {
                     this.wiki = wiki;
@@ -243,14 +245,12 @@ describe("routes : wikis", () => {
       it("should create a new wiki and redirect", (done) => {
           request.post(options,
               (err, res, body) => {
-                //console.log(body);
                   Wiki.findOne({
                           where: {
                               title: "blink-182 songs"
                           }
                       })
                       .then((wiki) => {
-                          console.log(title); //remove when debugged
                           expect(res.statusCode).toBe(303);
                           expect(wiki.title).toBe("blink-182 songs");
                           expect(wiki.body).toBe("What's your favorite blink-182 song?");
@@ -385,7 +385,8 @@ describe("premium user performing CRUD actions for Wikis", () => {
           url: `${base}create`,
           form: {
               title: "blink-182 songs",
-              body: "What's your favorite blink-182 song?"
+              body: "What's your favorite blink-182 song?",
+              //userId: user.id  
           }
       };
 
@@ -402,7 +403,6 @@ describe("premium user performing CRUD actions for Wikis", () => {
                           }
                       })
                       .then((wiki) => {
-                          console.log(title); //remove when debugged
                           expect(res.statusCode).toBe(303);
                           expect(wiki.title).toBe("blink-182 songs");
                           expect(wiki.body).toBe("What's your favorite blink-182 song?");
