@@ -12,7 +12,23 @@ module.exports = {
          callback(err);
       });
    },
-   addWiki(newWiki, callback) {
+
+   addWiki(newWiki, callback){
+    return Wiki.create({
+        title: newWiki.title,
+        body: newWiki.body,
+        private: newWiki.private,
+        userId: newWiki.userId
+    })
+    .then((wikis) => {
+        callback(null, wikis);
+    })
+    .catch((err) => {
+        callback(err);
+    })
+   },
+
+   /*addWiki(newWiki, callback) {
      return Wiki.create(newWiki)
      .then((wiki) => {
        callback(null, wiki);
@@ -20,7 +36,8 @@ module.exports = {
      .catch((err) => {
        callback(err);
      });
-   },
+   }, */
+
    getWiki(id, callback) {
       return Wiki.findById(id)
       .then((wiki) => {
@@ -30,6 +47,7 @@ module.exports = {
          callback(err);
       });
    },
+
    deleteWiki(req, callback){
       return Wiki.findById(req.params.id)
       .then((wiki) => {
@@ -50,6 +68,7 @@ module.exports = {
           callback(err);
       });
    },
+
    updateWiki(req, updatedWiki, callback) {
       return Wiki.findById(req.params.id)
       .then((wiki) => {
@@ -74,5 +93,19 @@ module.exports = {
               callback("Forbidden");
           }
       });
-  }
+   },
+
+   togglePrivacy(user){
+    Wiki.findAll({
+        where: { userId: user.id}
+    })
+    .then((wikis) => {
+        wikis.forEach((wiki) => {
+            wiki.update({
+                private: false
+            })
+        })
+    })
+   }
+
 }

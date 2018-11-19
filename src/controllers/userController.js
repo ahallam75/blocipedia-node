@@ -10,9 +10,11 @@ const secretKey = process.env.STRIPE_SECRET_KEY;
 const stripe = require("stripe")(secretKey);
 
 module.exports = {
+
   signUp(req, res, next){
      res.render("users/signup");
   },
+
   create(req, res, next){
     let newUser = {
       username: req.body.username,
@@ -43,9 +45,11 @@ module.exports = {
       }
     });
   }, 
+
   signInForm(req, res, next){
     res.render("users/signin");
   },
+
   signIn(req, res, next){
     passport.authenticate("local")(req, res, function() {
       if(!req.user){
@@ -58,11 +62,13 @@ module.exports = {
       }
     })
   },
+
   signOut(req, res, next){
     req.logout();
     req.flash("notice", "You've successfully signed out");
     res.redirect("/");
   },
+
   show(req, res, next) {
     userQueries.getUser(req.params.id, (err, user) => {
         if(err || user === undefined){
@@ -124,6 +130,27 @@ module.exports = {
     });
   },
 
+  downgrade(req, res, next) {
+    userQueries.getUser(req.params.id, (err, user) => {
+        if (err || user === undefined) {
+            req.flash("notice", "Downgrade unsuccessful.");
+            res.redirect("users/show", {
+                user
+            });
+        } else {
+            wikiQueries.changePrivacy(user);
+            userQueries.changeRole(user);
+            req.flash("notice", "You've been downgraded to Standard!");
+            res.redirect("/");
+        }
+    });
+  }
+
+}
+
+
+  /*
+
   downgrade(req, res, next){
     User.findById(req.params.id)
     .then((user) => {
@@ -137,4 +164,4 @@ module.exports = {
         }
     })
   }
-}
+} */
