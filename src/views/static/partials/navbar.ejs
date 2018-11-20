@@ -14,7 +14,7 @@
             </a>
           </li>
 
-          <% if(currentUser && currentUser.role != "standard") { %>
+          <% if(currentUser && (currentUser.role === "admin" || currentUser.role === "premium")) { %>
             <li class="nav-item">
               <a class="nav-link" href="/wikis/private">Private Wikis</a>
             </li>

@@ -138,8 +138,10 @@ module.exports = {
                 user
             });
         } else {
-          userQueries.changeRole(req.user.dataValues.id);
+          //userQueries.changeRole(req.user.dataValues.id);
           wikiQueries.makePublic(req.user.dataValues.id); 
+          //wikiQueries.makePublic(user);
+          userQueries.changeRole(user);
           req.flash('notice', 'You are no longer a premium user and your private wikis are now public.');
           res.redirect('/wikis');
         }

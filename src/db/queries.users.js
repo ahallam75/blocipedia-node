@@ -44,11 +44,11 @@ module.exports = {
         where: {email: user.email}
     })
     .then((user) => {
-        if(user.role == "standard"){
+        if(user.role === "standard"){
             user.update({
                 role: "premium"
             });
-        } else if(user.role == "premium"){
+        } else if(user.role === "premium"){
             user.update({
                 role: "standard"
             });
