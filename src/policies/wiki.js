@@ -21,4 +21,12 @@ module.exports = class WikiPolicy extends ApplicationPolicy {
     destroy() {
         return this._isAdmin();
     }
+
+    private() {
+        return this._isPremium() || this._isAdmin();
+    }
+
+    public() {
+        return this.private();
+    }
 }

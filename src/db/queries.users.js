@@ -39,7 +39,7 @@ module.exports = {
     })
   },
 
-  toggleRole(user){
+  changeRole(user){
     User.findOne({
         where: {email: user.email}
     })

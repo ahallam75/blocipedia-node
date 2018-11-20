@@ -16,7 +16,7 @@ module.exports = {
       })
    },
 
-   new(req, res, next) { //May have to revert back to old version.
+   new(req, res, next) { 
     const authorized = new Authorizer(req.user).new();
     if(authorized){
         res.render("wikis/new");
@@ -95,5 +95,16 @@ module.exports = {
             res.redirect(`/wikis/${wiki.id}`);
          }
       });
+   },
+
+   private(req, res, next) {
+    wikiQueries.getAllWikis((err, wikis) => {
+        if (err) {
+            console.log(err);
+            res.redirect(500, "static/index");
+        } else {
+            res.render("wikis/private", {wikis});
+        }
+    })
    }
 }

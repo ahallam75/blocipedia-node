@@ -21,6 +21,14 @@ module.exports = class ApplicationPolicy {
         return this.user && this.user.role == "standard";
     }
 
+    _isPublic() {
+        return this.record.private === false;
+    }
+
+    _isPrivate() {
+        return this.record.private === true;
+    }
+
     new() {
         return this.user != null;
     }
@@ -34,8 +42,13 @@ module.exports = class ApplicationPolicy {
     }
 
     edit() {
-        return this.new() &&
-            this.record && (this._isOwner() || this._isAdmin() || this._isPremium());
+        if (this.record.private == false) {
+            return this.new() &&
+            this.record && (this._isStandard() || this._isPremium() || this._isAdmin());
+        } else if (this.record.private == true) {
+            return this.new() &&
+            this.record && (this._isPremium() || this._isAdmin() || this._isStandard());
+        }
     }
 
     update() {
@@ -43,6 +56,7 @@ module.exports = class ApplicationPolicy {
     }
 
     destroy() {
-        return this.update();
+        return this.new() &&
+            this.record && (this._isOwner() || this._isAdmin());
     }
 }

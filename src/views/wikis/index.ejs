@@ -21,19 +21,12 @@
 
             <ul class="list-group">
                 <% wikis.forEach((wiki) => { %>
-                    <% if(wiki.private) { %>
-                        <% if(currentUser) { %>
-                            <% if(currentUser.isPremium() || currentUser.isAdmin()) { %>
-                                <li class="list-group-item">
-                                    <a href="/wikis/<%= wiki.id %>"> <%= wiki.title %> </a>
-                                </li>
-                            <% } %>
-                        <% } %>
-                    <% } else { %>
+                    <% if(wiki.private === false) { %>
                         <li class="list-group-item">
-                            <a href="/wikis/<%= wiki.id %>"> <%= wiki.title %> </a>
+                            <a href="/wikis/<%= wiki.id %>"> <%- wiki.title %> </a>
                         </li>
                     <% } %>
+                    
                 <% }) %>
             </ul>
 

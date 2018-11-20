@@ -1,4 +1,5 @@
 const Wiki = require("./models").Wiki;
+const User = require("./models").User;
 const Authorizer = require("../policies/wiki");
 
 module.exports = {
@@ -27,16 +28,6 @@ module.exports = {
         callback(err);
     })
    },
-
-   /*addWiki(newWiki, callback) {
-     return Wiki.create(newWiki)
-     .then((wiki) => {
-       callback(null, wiki);
-     })
-     .catch((err) => {
-       callback(err);
-     });
-   }, */
 
    getWiki(id, callback) {
       return Wiki.findById(id)
@@ -94,8 +85,24 @@ module.exports = {
           }
       });
    },
-
-   togglePrivacy(user){
+   
+   makePublic(id) {
+    return Wiki.all()
+        .then((wikis) => {
+            wikis.forEach((wiki) => {
+                if (wiki.userId == id && wiki.private == true) {
+                    wiki.update({
+                        private: false
+                    })
+                }
+            })
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+   }
+   /*
+   makePublic(user){
     Wiki.findAll({
         where: { userId: user.id}
     })
@@ -107,5 +114,6 @@ module.exports = {
         })
     })
    }
+   */
 
 }
