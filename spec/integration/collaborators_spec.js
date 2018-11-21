@@ -52,7 +52,6 @@ describe("routes : collaborators", () => {
   
       it("should render a view and with a form to see and add collaborators", (done) => {
         request.get(`${base}${this.wiki.id}/collaborators`, (err, res, body) => {
-          console.log(collaborators.body);
           expect(err).toBeNull();
           expect(body).toContain("Alpha Centauri");
           done();
