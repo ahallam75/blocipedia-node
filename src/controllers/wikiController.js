@@ -1,6 +1,7 @@
 const wikiQueries = require("../db/queries.wikis.js");
 const Authorizer = require("../policies/wiki");
 const flash = require("express-flash");
+const markdown = require( "markdown" ).markdown;
 
 module.exports = {
 
@@ -50,14 +51,14 @@ module.exports = {
    },
 
    show(req, res, next) {
-      wikiQueries.getWiki(req.params.id, (err, wiki) => {
-         if(err || wiki == null) {
-            res.redirect(404, "/");
-         }
-         else {
-            res. render("wikis/show", {wiki});
-         }
-      });
+    wikiQueries.getWiki(req.params.id, (err, wiki) => {
+      if (err || wiki == null) {
+        res.redirect(404, "/");
+      } else {
+        wiki.body = markdown.toHTML(wiki.body);
+        res.render("wikis/show", { wiki });
+      }
+    });
    },
 
    destroy(req, res, next){
