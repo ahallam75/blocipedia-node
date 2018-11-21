@@ -51,13 +51,18 @@ module.exports = {
    },
 
    show(req, res, next) {
-    wikiQueries.getWiki(req.params.id, (err, wiki) => {
-      if (err || wiki == null) {
-        res.redirect(404, "/");
-      } else {
-        wiki.body = markdown.toHTML(wiki.body);
-        res.render("wikis/show", { wiki });
-      }
+    wikiQueries.getWikis(req.params.id, (err, result) => {
+        wiki = result["wiki"];
+        collaborators = result["collaborators"];
+
+        if (err || result.wiki == null) {
+            res.redirect(404, "/");
+        } else {
+            wiki.body = markdown.toHTML(wiki.body);
+            res.render("wikis/show", {
+                wiki
+            });
+        }
     });
    },
 
@@ -71,21 +76,27 @@ module.exports = {
         });
    },
 
-   edit(req, res, next){ 
-        wikiQueries.getWiki(req.params.id, (err, wiki) => {
-            if(err || wiki == null){
-                res.redirect(404, "/");
+   edit(req, res, next) {
+    wikiQueries.getWikis(req.params.id, (err, result) => {
+        wiki = result["wiki"];
+        collaborators = result["collaborators"];
+
+        if (err || result.wiki == null) {
+            res.redirect(404, "/");
+        } else {
+            const authorized = new Authorizer(req.user, wiki, collaborators).edit();
+            if (authorized) {
+                res.render("wikis/edit", {
+                    wiki,
+                    collaborators
+                });
             } else {
-                const authorized = new Authorizer(req.user, wiki).edit();
-                if(authorized){
-                    res.render("wikis/edit", {wiki});
-                } else {
-                    req.flash("notice", "You are not authorized to do that.");
-                    res.redirect(`/wikis/${req.params.id}`);
-                }
+                req.flash("You are not authorized to do that.");
+                res.redirect(`/wikis/${req.pararms.id}`)
             }
-        });
-    },
+        }
+    });
+   },
     
    update(req, res, next) {
       wikiQueries.updateWiki(req, req.body, (err, wiki) => {

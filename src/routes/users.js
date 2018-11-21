@@ -13,6 +13,7 @@ router.get("/users/:id/upgrade", userController.showUpgradePage);
 router.get("/users/:id/downgrade", userController.showDowngradePage);
 router.post("/users/:id/upgrade", userController.upgrade);
 router.post("/users/:id/downgrade", userController.downgrade);
+router.get("/users/collaborations", userController.showCollaborations);
 
 
 module.exports = router;
