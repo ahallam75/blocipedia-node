@@ -63,7 +63,7 @@ module.exports = {
    
    show(req, res, next) {
     wikiQueries.getWiki(req.params.id, (err, wiki) => {
-        console.log("QUERY: " + JSON.stringify(wiki));
+        wiki = wiki["wiki"]; 
         collaborators = wiki["collaborators"];
 
         if (err || wiki == null) {
@@ -107,7 +107,7 @@ module.exports = {
 
    edit(req, res, next) {
     wikiQueries.getWiki(req.params.id, (err, wiki) => {
-
+        wiki = wiki["wiki"]; 
         collaborators = wiki["collaborators"];
 
         if (err || wiki == null) {

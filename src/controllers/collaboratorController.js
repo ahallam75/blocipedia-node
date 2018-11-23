@@ -1,12 +1,14 @@
-const collaboratorQueries = require("../db/queries.collaborators.js");
-const Authorizer = require('../policies/application');
-const wikiQueries = require("../db/queries.wikis.js");
+const collaboratorQueries = require("../db/queries.collaborators");
+const User = require("../db/models").User;
+const Wiki = require("../db/models").Wiki;
+const Authorizer = require("../policies/application");
+const wikiQueries = require("../db/queries.wikis");
 
 module.exports = {
 
   show(req, res, next) {
     wikiQueries.getWiki(req.params.wikiId, (err, wiki) => {
-      //wiki = result["wiki"];
+      wiki = wiki["wiki"];
       collaborators = wiki["collaborators"];
 
       if(err || wiki == null) {
