@@ -5,9 +5,9 @@ const wikiQueries = require("../db/queries.wikis.js");
 module.exports = {
 
   show(req, res, next) {
-    wikiQueries.getWiki(req.params.wikiId, (err, result) => {
-      wiki = result["wiki"];
-      collaborators = result["collaborators"];
+    wikiQueries.getWiki(req.params.wikiId, (err, wiki) => {
+      //wiki = result["wiki"];
+      collaborators = wiki["collaborators"];
 
       if(err || wiki == null) {
           res.redirect(404, "/");
