@@ -17,8 +17,8 @@
             <p><%- wiki.body %></p>
 
             <% if(wiki.private) { %>
-                <p>This wiki is private. Only Premium members may edit private wikis.</p>
-                <% if(currentUser.isPremium() || currentUser.isAdmin()) { %>
+                <p>This wiki is private. Only Premium members or collaborators may edit private wikis.</p>
+                <% if(currentUser.isPremium() || currentUser.isAdmin() || currentUser.isCollaborator()) { %>
                     <a href="/wikis/<%= wiki.id %>/edit" class="btn btn-warning">Edit Wiki</a>
                 <% } %>
                 <% } else { %>

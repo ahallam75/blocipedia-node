@@ -21,6 +21,10 @@ module.exports = class ApplicationPolicy {
         return this.user && this.user.role == "standard";
     }
 
+    _isCollaborator() {
+        return this.user && this.user.role == "collaborator";
+    }
+
     _isPublic() {
         return this.record.private === false;
     }

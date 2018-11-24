@@ -130,24 +130,19 @@ module.exports = {
     });
   },
 
-  downgrade(req, res, next) {
-    userQueries.getUser(req.params.id, (err, user) => {
-        if (err || user === undefined) {
-            req.flash("notice", "Downgrade unsuccessful.");
-            res.redirect("users/show", {
-                user
-            });
+  downgrade(req, res, next){
+    User.findById(req.params.id)
+    .then((user) => {
+        if(user){
+            userQueries.changeRole(user);
+            req.flash("success", "Your downgrade to standard was successful!");
+            res.redirect("/wikis");
         } else {
-          //userQueries.changeRole(req.user.dataValues.id);
-          wikiQueries.makePublic(req.user.dataValues.id); 
-          //wikiQueries.makePublic(user);
-          userQueries.changeRole(user);
-          req.flash('notice', 'You are no longer a premium user and your private wikis are now public.');
-          res.redirect('/wikis');
+            req.flash("notice", "Failed to downgrade");
+            res.redirect("users/show", {user});
         }
-
-    });
-  }, 
+    })
+  },
 
   showCollaborations(req, res, next) {
     userQueries.getUser(req.user.id, (err, result) => {
