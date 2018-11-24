@@ -11,7 +11,7 @@ module.exports = class WikiPolicy extends ApplicationPolicy {
     }
     
     edit() {
-        return this._isAdmin() || this._isPremium() || this._isStandard() || this._isCollaborator();
+        return this._isAdmin() || this._isPremium() || this._isStandard();
     }
 
     update() {
@@ -23,7 +23,7 @@ module.exports = class WikiPolicy extends ApplicationPolicy {
     }
 
     private() {
-        return this._isPremium() || this._isAdmin() || this._isCollaborator();
+        return this._isPremium() || this._isAdmin();
     }
 
     public() {

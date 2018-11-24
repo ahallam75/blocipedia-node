@@ -18,6 +18,7 @@
          <label for="body">Wiki body</label>
          <textarea rows="4" class="form-control" name="body" placeholder="Enter Description"><%= wiki.body %></textarea>
         </div>
+        
         <% if((currentUser && (currentUser.role === "premium" && wiki.userId === currentUser.id)) || currentUser.role === 'admin') { %>
             <p>Public/Private Status</p>
             <div class="form-group">

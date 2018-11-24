@@ -24,7 +24,7 @@ module.exports = {
       }
     });
   },
-
+/*
   create(req, res, next) {
     collaboratorQueries.createCollaborator(req, (err, collaborator) => {
           console.log("This is the collaborator: ", collaborator);
@@ -33,6 +33,17 @@ module.exports = {
           req.flash("error", err);
       }
       res.redirect(req.headers.referer);
+    });
+  },
+*/
+
+  create(req, res, next) {
+    collaboratorQueries.createCollaborator(req, (err, collaborator) => {
+        if (err) {
+            //req.flash("error", err);
+            req.flash("notice", "User already exists")
+        }
+        res.redirect(`/wikis/${req.params.wikiId}/collaborators`);
     });
   },
 
