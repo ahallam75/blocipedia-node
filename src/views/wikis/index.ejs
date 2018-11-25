@@ -26,7 +26,7 @@
                             <a href="/wikis/<%= wiki.id %>"> <%= wiki.title %> </a>
                         </li>
                         <% } else { %> 
-                            <% if (currentUser.isPremium() || currentUser.isAdmin() || currentUser.collaborator) { %>
+                            <% if (currentUser.isPremium() || currentUser.isAdmin()) { %>
                             <li class="list-group-item">
                                 <a href="/wikis/<%= wiki.id %>"> <%= wiki.title %> </a>
                             </li>
