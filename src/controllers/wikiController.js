@@ -4,32 +4,34 @@ const flash = require("express-flash");
 const markdown = require( "markdown" ).markdown;
 const Wiki = require("../db/models").Wiki;
 const Collaborator = require("../db/models").Collaborator;
+const User = require("../db/models").User;
+const Sequelize = require('sequelize')
+const Op = Sequelize.Op;
 
 module.exports = {
 
    index(req, res, next) {
-      Wiki.findAll((err, wikis) => {
-        Wiki.findAll({
-            include: [{
-              model: Collaborator,
-              as: "collaborators",
-              where: {userId}
-            }]
-          })
+    Wiki.findAll({
+        include: [{
+          model: Collaborator,
+          as: "collaborators",
+          attributes: ["userId"]
+        }],
+        where: {
+          [Op.or]: [{private: false}, {userId: req.user.id}, {'$collaborators.userId$': req.user.id}]
+        }
+    })
         .then((wikis) => {
-         if(err){
+          res.render("wikis/index", {wikis});
+        })
+
+        .catch(err => {
             console.log(err);
             res.redirect(500, "static/index");
-         }
-         else {
-            res.render("wikis/index", {
-                wikis, 
-                collaborators
-            });
-         }
-        });
-      })
+        }) 
    },
+
+   
 
    new(req, res, next) { 
     const authorized = new Authorizer(req.user).new();
@@ -162,4 +164,6 @@ module.exports = {
         }
     })
    }
+
 }
+
