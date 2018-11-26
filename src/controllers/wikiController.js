@@ -120,7 +120,7 @@ module.exports = {
    }, */
 
 
-
+/*
    edit(req, res, next) {
     wikiQueries.getWiki(req.params.id, (err, wiki) => {
         wiki = wiki["wiki"]; 
@@ -141,7 +141,30 @@ module.exports = {
             }
         }
     });
-   }, 
+   }, */
+
+   edit(req, res, next) {
+    Wiki.findById({
+        include: [{
+          model: Collaborator,
+          as: "collaborators",
+          attributes: ["userId"]
+        }],
+        where: {
+          [Op.or]: [{private: false}, {userId: req.user.id}, {'$collaborators.userId$': req.user.id}]
+        }
+    })
+        .then((wikis) => {
+          res.render("wikis/edit", {wikis});
+        })
+
+        .catch(err => {
+            console.log(err);
+            res.redirect(500, "static/index");
+        }) 
+   },
+
+
     
    update(req, res, next) {
       wikiQueries.updateWiki(req, req.body, (err, wiki) => {
