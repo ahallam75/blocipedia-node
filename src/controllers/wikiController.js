@@ -9,7 +9,7 @@ const Sequelize = require('sequelize')
 const Op = Sequelize.Op;
 
 module.exports = {
-
+/*
     index(req, res, next){
         wikiQueries.getAllWikis((err, wikis) => {
           if(err){
@@ -19,15 +19,21 @@ module.exports = {
           }
         })
       },
-      
-    /*
+*/    
+    
    index(req, res, next) {
     Wiki.findAll({
         include: [{
           model: Collaborator,
           as: "collaborators",
           attributes: ["userId"]
+        },
+        
+        {model: User,
+         as: "xxxxx",
+         attributes: ["model"]
         }],
+        
         where: {
           [Op.or]: [{private: false}, {userId: req.user.id}, {'$collaborators.userId$': req.user.id}]
         }
@@ -40,7 +46,7 @@ module.exports = {
             console.log(err);
             res.redirect(500, "static/index");
         }) 
-   },*/
+   },
 
    
 
