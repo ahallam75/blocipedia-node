@@ -1,34 +1,35 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <% include ../static/partials/head.ejs %>
+  </head>
+  <body>
+    <main class="container">
+      <% include ../static/partials/navbar.ejs %>
 
-    <head>
-        <% include ../static/partials/head.ejs %>
-    </head>
-
-    <body>
-
-        <main class="container">
-
-            <% include ../static/partials/navbar.ejs %>
-
-            <% include ../static/partials/messages.ejs %>
-
-            <h1>Wikis</h1>
-
-            <% if(currentUser) { %>
-                <a href="/wikis/new" class="btn btn-success">New Wiki</a>
+      <h1>Wikis</h1>
+      <% if(!currentUser) { %>
+        <small>Please sign up/sign in to create your own wiki topic.</small>
+      <% } %>
+      <% if(currentUser) { %>
+        <a href="/wikis/new" class="btn btn-success">Create New Wiki</a>
+      <% } %>
+        <ul class="list-group">
+          <% wikis.forEach((wiki) => { %>
+            <% if(wiki.private === false) { %>
+              <li class="list-group-item">
+                <a href="/wikis/<%= wiki.id %>"> <%= wiki.title %> </a>
+              </li>
+            <% } else if (wiki.private === true && (currentUser.isPremium() || currentUser.isAdmin())){ %>
+              <li class="list-group-item">
+                <a href="/wikis/<%= wiki.id %>"> <%= wiki.title %> </a>
+              </li>
             <% } %>
+          <% }) %>
 
-            <ul class="list-group">
-                <% wikis.forEach((wiki) => { %>
-                    <li class="list-group-item">
-                      <a href="/wikis/<%= wiki.id %>"> <%= wiki.title %> </a>
-                    </li>
-                <% }) %>
-            </ul>
+        </ul>
 
-        </main>
-        
+      </main>
     </body>
+  </html>
 
-</html>

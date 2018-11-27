@@ -16,6 +16,12 @@ module.exports = (sequelize, DataTypes) => {
     },
     userId: {
       type: DataTypes.INTEGER,
+      allowNull: false
+    }
+
+    /*
+    userId: {
+      type: DataTypes.INTEGER,
       onDelete: "CASCADE",
       references: {
         model: "Users",
@@ -23,6 +29,7 @@ module.exports = (sequelize, DataTypes) => {
         as: "userId"
       }
     }
+    */
   }, {});
   Wiki.associate = function (models) {
     Wiki.belongsTo(models.User, {

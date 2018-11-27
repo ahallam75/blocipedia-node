@@ -10,42 +10,39 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     }
   }, {});
-  Collaborator.associate = function (models) {
-    // associations can be defined here
+
+  Collaborator.associate = function(models) {
+
     Collaborator.belongsTo(models.Wiki, {
       foreignKey: "wikiId",
       onDelete: "CASCADE"
     });
+
     Collaborator.belongsTo(models.User, {
       foreignKey: "userId",
       onDelete: "CASCADE"
     });
-    Collaborator.addScope('collaboratorsFor', (wikiId) => {
+
+    Collaborator.addScope("collaboratorsFor", (wikiId) => {
       return {
-        include: [{
-          model: models.User
-        }],
-        where: {
-          wikiId: wikiId
-        },
-        order: [
-          ['createdAt', 'ASC']
-        ]
+      include: [{
+        model: models.User
+      }],
+      where: {wikiId: wikiId},
+      order: [["createdAt", "ASC"]]
       }
     });
+
     Collaborator.addScope("userCollaborationsFor", (userId) => {
-      return {
+      return{
         include: [{
           model: models.Wiki
         }],
-        where: {
-          userId: userId
-        },
-        order: [
-          ["createdAt", "ASC"]
-        ]
+        where: {userId: userId},
+        order: [["createdAt", "ASC"]]
       }
     });
+
   };
   return Collaborator;
 };
