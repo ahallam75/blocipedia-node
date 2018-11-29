@@ -6,7 +6,6 @@ const Authorizer = require("../policies/application");
 module.exports = {
 
   createCollaborator(req, callback){
-      console.log("Is this holding the username: ", req.body.username);
       User.findOne({
       where: {
         username: req.body.username

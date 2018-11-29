@@ -42,8 +42,8 @@ module.exports = (sequelize, DataTypes) => {
   User.prototype.isPremium = function() {
     return this.role === "premium";
   };
-  User.prototype.isOwner = function() {
-    return this.userId === this.foreignKey;
+  User.prototype.isOwner = function(wiki) {
+    return this.Id === wiki.userId;
   }
   return User;
 };

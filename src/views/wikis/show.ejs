@@ -16,7 +16,7 @@
       <% if(currentUser) { %>
           <a href="/wikis/<%= wiki.id %>/edit" class="btn btn-warning">Edit</a>
       <% } %>
-      <% if((wiki.private === false && currentUser.isOwner()) || (wiki.private === true && (currentUser.isOwner || currentUser.isAdmin()))) { %>
+      <% if(currentUser.isOwner(wiki) || currentUser.isAdmin()) { %>
           <form style="display:initial" action="/wikis/<%= wiki.id %>/destroy" method="post">
             <button type="submit" class="btn btn-danger">Delete</button>
           </form>
