@@ -22,21 +22,20 @@ module.exports = {
 */    
     
    index(req, res, next) {
+    let userRole = {};
+    if(req.user.role !== "admin") {
+        userRole = {[Op.or]: [{private: false}, {userRole}, {userId: req.user.id}, {'$collaborators.userId$': req.user.id}]};
+    } else {
+        userRole = {};
+    };
     Wiki.findAll({
         include: [{
           model: Collaborator,
           as: "collaborators",
           attributes: ["userId"]
-        },
-        
-        {model: User,
-         as: "xxxxx",
-         attributes: ["model"]
         }],
-        
-        where: {
-          [Op.or]: [{private: false}, {userId: req.user.id}, {'$collaborators.userId$': req.user.id}]
-        }
+
+        where: userRole
     })
         .then((wikis) => {
           res.render("wikis/index", {wikis});
