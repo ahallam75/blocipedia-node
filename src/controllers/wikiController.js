@@ -24,7 +24,7 @@ module.exports = {
    index(req, res, next) {
     let userRole = {};
     if(req.user.role !== "admin") {
-        userRole = {[Op.or]: [{private: false}, {userRole}, {userId: req.user.id}, {'$collaborators.userId$': req.user.id}]};
+        userRole = {[Op.or]: [{private: false}, {userId: req.user.id}, {'$collaborators.userId$': req.user.id}]};
     } else {
         userRole = {};
     };

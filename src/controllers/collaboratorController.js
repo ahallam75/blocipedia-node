@@ -1,15 +1,16 @@
 const collaboratorQueries = require("../db/queries.collaborators");
 const User = require("../db/models").User;
 const Wiki = require("../db/models").Wiki;
+const Collaborator = require("../db/models").Collaborator;
 const Authorizer = require("../policies/application");
 const wikiQueries = require("../db/queries.wikis");
 
 module.exports = {
 
   show(req, res, next) {
-    wikiQueries.getWiki(req.params.wikiId, (err, wiki) => {
-      wiki = wiki["wiki"];
-      collaborators = wiki["collaborators"];
+    wikiQueries.getWiki(req.params.wikiId, (err, result) => {
+      wiki = result["wiki"];
+      collaborators = result["collaborators"];
 
       if(err || wiki == null) {
           res.redirect(404, "/");

@@ -41,6 +41,9 @@ module.exports = (sequelize, DataTypes) => {
       as: "collaborators"
     });
   };
+  Wiki.prototype.isOwner = function() {
+    return this.userId === this.foreignKey;
+  }
   return Wiki;
 };
 
