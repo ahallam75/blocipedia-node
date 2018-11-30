@@ -43,7 +43,7 @@ module.exports = (sequelize, DataTypes) => {
     return this.role === "premium";
   };
   User.prototype.isOwner = function(wiki) {
-    return this.Id === wiki.userId;
-  }
+    return this.id === wiki.userId;
+  } 
   return User;
 };
