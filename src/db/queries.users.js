@@ -18,7 +18,7 @@ module.exports = {
       const msg = {
         to: 'test@example.com',
         from: 'test@example.com',
-        subject: 'Thanks for joining Blocipedia!',
+        subject: 'Thanks for joining Collabipedia!',
         text: 'You are going to have a blast!',
         html: '<strong>Enjoy your wiki experience!!</strong>',
       };

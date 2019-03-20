@@ -34,10 +34,10 @@ module.exports = {
           sgMail.setApiKey(process.env.SENDGRID_API_KEY);
           const msg = {
             to: user.email,
-            from: 'support@blocipedia.com',
-            subject: 'Welcome to Blocipedia!',
-            text: `Welcome to Blocipedia ${user.username}!`,
-            html: `<strong>Welcome to Blocipedia ${user.username}!</strong>`,
+            from: 'support@collabipedia.com',
+            subject: 'Welcome to Collabipedia!',
+            text: `Welcome to Collabipedia ${user.username}!`,
+            html: `<strong>Welcome to Collabipedia ${user.username}!</strong>`,
           };
           sgMail.send(msg);
           res.redirect("/");
