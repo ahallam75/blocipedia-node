@@ -2,7 +2,7 @@
   "development": {
     "username": "postgres",
     "password": null,
-    "database": "blocipedia-dev",
+    "database": "collabipedia-dev",
     "host": "127.0.0.1",
     "dialect": "postgres",
      "logging": false,
@@ -11,7 +11,7 @@
   "test": {
     "username": "postgres",
     "password": null,
-    "database": "blocipedia-test",
+    "database": "collabipedia-test",
     "host": "127.0.0.1",
     "dialect": "postgres",
      "logging": false,

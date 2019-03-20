@@ -14,11 +14,12 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       defaultValue: false
     },
-    /*userId: {
+    
+    userId: {
       type: DataTypes.INTEGER,
       allowNull: false
     }
-    */
+    
     /*
     userId: {
       type: DataTypes.INTEGER,
